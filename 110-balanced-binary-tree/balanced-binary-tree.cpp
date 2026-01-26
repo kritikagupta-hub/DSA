@@ -13,24 +13,23 @@ class Solution {
 public:
     pair<bool,int> isBalancedFast(TreeNode* root){
         if(root == NULL){
-            pair<bool,int> p = make_pair(true,0);
-            return p;
+            return make_pair(true, 0);
         }
-        pair<bool,int> left = isBalancedFast(root->left);
-        pair<bool,int> right = isBalancedFast(root->right);
 
-        bool leftAns = left.first;
-        bool rightAns = right.first;
+        auto left  = isBalancedFast(root->left);
+        auto right = isBalancedFast(root->right);
 
-        bool diff = abs ( left.second - right.second) <= 1;
+        bool diff = abs(left.second - right.second) <= 1;
+
         pair<bool,int> ans;
-        ans.second= max(left.second , right.second) + 1;
-
-        ans.first = leftAns && rightAns && diff;
+        ans.second = max(left.second, right.second) + 1;
+        ans.first  = left.first && right.first && diff;
 
         return ans;
     }
+
     bool isBalanced(TreeNode* root) {
         return isBalancedFast(root).first;
     }
 };
+

@@ -9,23 +9,14 @@ struct Node
 
 // Class Solution
 class Solution {
-  public:
-    // Function to count the number of leaf nodes in a binary tree.
-    void inorder(Node* root , int &count){
-        if(root == NULL){
-            return;
-        }
-        inorder(root->left , count);
-        //leaf node
-        if(root->left == NULL && root->right == NULL){
-            count++;
-        }
-        inorder(root->right , count);
-    }
+public:
     int countLeaves(Node* root) {
-        // write code here
-        int c = 0;
-        inorder(root,c);
-        return c;
+        if (root == NULL)
+            return 0;
+        
+        if (root->left == NULL && root->right == NULL)
+            return 1;
+
+        return countLeaves(root->left) + countLeaves(root->right);
     }
 };

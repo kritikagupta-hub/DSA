@@ -1,33 +1,52 @@
 class MedianFinder {
-private:
-    priority_queue<int> firstQ; // max_heap for the first half
-    priority_queue<int, std::vector<int>, std::greater<int> > secQ; // min_heap for the second half
 public:
-    // Adds a number into the data structure.
-    void addNum(int num) {
-        if(firstQ.empty() || (firstQ.top()>num)) firstQ.push(num); // if it belongs to the smaller half
-        else secQ.push(num); 
+    
+    // Max Heap -> stores smaller half of numbers
+    priority_queue<int> maxHeap;
+
+    // Min Heap -> stores larger half of numbers
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
+    // Constructor
+    MedianFinder() {
         
-        // rebalance the two halfs to make sure the length difference is no larger than 1
-        if(firstQ.size() > (secQ.size()+1))
-        {
-            secQ.push(firstQ.top());
-            firstQ.pop();
+    }
+    
+    // Function to add number into the stream
+    void addNum(int num) {
+        
+        // Step 1: Insert element into appropriate heap
+        if(maxHeap.empty() || num <= maxHeap.top()){
+            maxHeap.push(num);
         }
-        else if(firstQ.size()+1<secQ.size())
-        {
-            firstQ.push(secQ.top());
-            secQ.pop();
+        else{
+            minHeap.push(num);
+        }
+
+        // Step 2: Balance the heaps
+        // Size difference should not be more than 1
+        if(maxHeap.size() > minHeap.size() + 1){
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        }
+        else if(minHeap.size() > maxHeap.size()){
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
         }
     }
-
-    // Returns the median of current data stream
+    
+    // Function to return median of current stream
     double findMedian() {
-        if(firstQ.size() == secQ.size()) return firstQ.empty()?0:( (firstQ.top()+secQ.top())/2.0);
-        else return (firstQ.size() > secQ.size())? firstQ.top():secQ.top(); 
+        
+        // Case 1: Both heaps have equal size
+        if(maxHeap.size() == minHeap.size()){
+            return (maxHeap.top() + minHeap.top()) / 2.0;
+        }
+
+        // Case 2: maxHeap has one extra element
+        return maxHeap.top();
     }
 };
-
 /**
  * Your MedianFinder object will be instantiated and called as such:
  * MedianFinder* obj = new MedianFinder();

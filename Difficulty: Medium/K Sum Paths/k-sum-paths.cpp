@@ -12,8 +12,8 @@ class Node {
 };
 */
 class Solution {
-  public:
-  
+public:
+    
     void solve(Node* root, int k, long long currSum,
                unordered_map<long long,int> &mp, int &count) {
         
@@ -36,7 +36,7 @@ class Solution {
         
         mp[currSum]--; // backtrack
     }
-  
+    
     int countAllPaths(Node *root, int k) {
         unordered_map<long long,int> mp;
         int count = 0;
@@ -44,3 +44,4 @@ class Solution {
         return count;
     }
 };
+

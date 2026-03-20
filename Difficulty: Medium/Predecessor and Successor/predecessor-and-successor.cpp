@@ -14,38 +14,41 @@ class Node {
 */
 
 class Solution {
-public:
+  public:
     vector<Node*> findPreSuc(Node* root, int key) {
-        
         Node* pre = NULL;
         Node* suc = NULL;
+        
         Node* curr = root;
         
-        while (curr) {
-            
-            if (curr->data < key) {
-                pre = curr;
-                curr = curr->right;
-            }
-            else if (curr->data > key) {
-                suc = curr;
-                curr = curr->left;
-            }
-            else {
+        while (curr != NULL) {
+            if (curr->data == key) {
                 // Find predecessor (max in left subtree)
-                Node* temp = curr->left;
-                while (temp) {
+                if (curr->left) {
+                    Node* temp = curr->left;
+                    while (temp->right) {
+                        temp = temp->right;
+                    }
                     pre = temp;
-                    temp = temp->right;
                 }
                 
                 // Find successor (min in right subtree)
-                temp = curr->right;
-                while (temp) {
+                if (curr->right) {
+                    Node* temp = curr->right;
+                    while (temp->left) {
+                        temp = temp->left;
+                    }
                     suc = temp;
-                    temp = temp->left;
                 }
                 break;
+            }
+            else if (key < curr->data) {
+                suc = curr;        // potential successor
+                curr = curr->left;
+            }
+            else {
+                pre = curr;        // potential predecessor
+                curr = curr->right;
             }
         }
         

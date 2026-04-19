@@ -1,14 +1,11 @@
 class Solution {
   public:
-    int isPowerOfAnother(int X, int Y) {
-        // code here
-        if(X==1){
-            return (Y==1);
-        }
-        int i=1;
-        while(i<Y){
-            i*=X;
-        }
-        return(i==Y);
+    bool isPower(int x, int y) {
+       for(int i = 0; i<1000;i++){
+           if(pow(x,i) == y){
+               return true;
+           }
+       }
+        
     }
 };

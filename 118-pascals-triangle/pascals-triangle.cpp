@@ -10,8 +10,8 @@ public:
         for (int i = 1; i < numRows - 1; i++) {
             newRow[i] = prevRows.back()[i - 1] + prevRows.back()[i];
         }
-        
         prevRows.push_back(newRow);
         return prevRows;
     }
 };
+

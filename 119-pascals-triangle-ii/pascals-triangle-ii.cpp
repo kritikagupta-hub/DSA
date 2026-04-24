@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
-        vector<int> row(1,1);
+        /*vector<int> row(1,1);
 
         for(int i=0;i<rowIndex;i++){
             vector<int> newR;
@@ -12,6 +12,13 @@ public:
             newR.push_back(1);
             row=newR;
         }
-        return row;
+        return row;*/
+        vector<int> arr(rowIndex+1);
+        long long val=1;
+        for(int i=0;i<=rowIndex;i++){
+            arr[i] = val;
+            val = val*(rowIndex-i)/(i+1); 
+        }
+        return arr;
     }
 };

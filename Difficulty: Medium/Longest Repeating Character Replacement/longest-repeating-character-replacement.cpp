@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestSubstr(string& s, int k) {
+        int n = s.size();
+        vector<int> freq(26, 0);
+        int i = 0, ans = 0, maxFreq = 0;
+
+        for (int j = 0; j < n; j++) {
+            freq[s[j] - 'A']++;
+            maxFreq = max(maxFreq, freq[s[j] - 'A']);
+
+            while ((j - i + 1) - maxFreq > k) {
+                freq[s[i] - 'A']--;
+                i++;
+            }
+            ans = max(ans, j - i + 1);
+        }
+        return ans;
+    }
+};

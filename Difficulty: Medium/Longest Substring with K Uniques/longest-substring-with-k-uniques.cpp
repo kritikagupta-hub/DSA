@@ -2,45 +2,24 @@ class Solution {
   public:
     int longestKSubstr(string &s, int k) {
         // code here
-        int i =0 ;
-        int j =0 ;
-        unordered_map<char , int>m ;
-        int maximum = INT_MIN ;
+        int low=0,high=0;
+        int res=-1;
+        map<char,int>f;
+        for(high=0;high<s.size();high++){
+            f[s[high]]++;//add high
         
-        while(j < s.length()){
-            
-            if(m.find(s[j]) == m.end()){
-                m[s[j]] = 1 ;
-            }else{
-                m[s[j]]++ ;
-            }
-            
-            if(m.size() < k){
-                j++ ;
-            }
-            
-            else if(m.size() == k){
-                
-                maximum = max(maximum , j-i+1) ;  //ans cal 
-                 j++ ;
-            }
-            
-            else if (m.size() > k){
-                while(m.size() > k){
-                    m[s[i]] -- ;     //remove cal of i
-                    
-                    if(m[s[i]] == 0){
-                        m.erase(s[i]) ;
-                    }
-                    i++ ;
+            while(f.size()>k){ //adjust window by removing low 
+                f[s[low]]--;
+                if(f[s[low]]==0){
+                    f.erase(s[low]);
                 }
-                j++ ;
+                low++;
+            }
+            if(f.size()==k){  //if ans obtain return
+                res = max(res,high-low+1);
             }
             
         }
-        
-        return m.size() < k  ? -1 : maximum ;
-        
-        
+        return res;
     }
 };

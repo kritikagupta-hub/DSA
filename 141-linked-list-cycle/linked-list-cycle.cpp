@@ -9,24 +9,11 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        //empty list logic
-        if(head==NULL){
-            return NULL;
-        }
-        //have single node in ll
-        if(head->next==NULL){
-            return false;
-        }
-        // floyd's detection algorithm slow=1 step and fast = 2 steps 
-        //when they both meet that means cycle is present.
-        ListNode * slow=head;
-        ListNode * fast=head;
-        while(slow!=NULL && fast!=NULL){
-            fast=fast->next;
-            if(fast!=NULL){
-                fast=fast->next;
-            }
+        ListNode*  slow=head;
+        ListNode* fast=head;
+        while(fast!=NULL && fast->next != NULL){
             slow=slow->next;
+            fast=fast->next->next;
             if(slow==fast){
                 return true;
             }

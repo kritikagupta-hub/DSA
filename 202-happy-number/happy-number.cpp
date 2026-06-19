@@ -1,16 +1,28 @@
 class Solution {
 public:
-    bool isHappy(int n) {
-        if(n==1 || n==7) return true;
-        else if(n<10) return false;
-        else{
-            int sum=0;
-            while(n>0){
-                int temp=n%10;
-                sum+= temp*temp;
-                n=n/10;
-            }
-            return isHappy(sum);
+    int fun(int n){
+        int sum = 0;
+
+        while(n > 0){
+            int d = n % 10;
+            sum += d * d;
+            n = n / 10;
         }
+        return sum;
+    }
+
+    bool isHappy(int n) {
+        int slow = n;
+        int fast = n;
+
+        while(fast != 1){
+
+            slow = fun(slow);
+            fast = fun(fun(fast));
+            if(slow == fast && slow != 1){
+                return false;
+            }
+        }
+        return true;
     }
 };

@@ -25,7 +25,7 @@ public:
 
         int low = *max_element(weights.begin(), weights.end());
         int high = accumulate(weights.begin(),weights.end(),0);
-        int ans = 0;
+        int ans = high;
         while(low<=high){
             int mid = low+(high-low)/2;
             if(CalDays(weights,days,mid)){

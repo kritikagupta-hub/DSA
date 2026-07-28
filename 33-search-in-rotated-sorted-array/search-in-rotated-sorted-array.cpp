@@ -8,19 +8,30 @@ public:
             int guess = low + (high - low) / 2;
             if (nums[guess]==target)
                 return guess;
-            if (nums[low]<=nums[guess]) {
-                if (target>=nums[low] && target<nums[guess]) {
-                    high=guess - 1;
-                } else {
-                    low=guess + 1;
+            if(nums[guess]>nums[n-1]){
+                if(nums[guess]<target){       //part1
+                    low=guess+1;
                 }
+                else{
+                    if(nums[0]>target){
+                        low=guess+1;
+                    }
+                    else{
+                        high=guess-1;
+                    }
+                } 
             }
-            else {
-                if (target>nums[guess] && target<=nums[high]) {
-                    low=guess + 1;
+            else{
+                if(nums[guess]>target){           //part2
+                    high=guess-1;
                 }
-                else {
-                    high=guess - 1;
+                else{
+                    if(nums[n-1]<target){
+                        high=guess-1;
+                    }
+                    else{
+                        low=guess+1;
+                    }
                 }
             }
         }

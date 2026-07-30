@@ -20,7 +20,7 @@ public:
     int aggressiveCows(vector<int> &arr, int k) {
         sort(arr.begin(), arr.end());
         int low = 1;
-        int high = arr.back() - arr.front();
+        int high = arr[arr.size() - 1] - arr[0];
 
         int ans = 0;
         while (low <= high) {

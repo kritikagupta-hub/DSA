@@ -11,26 +11,18 @@
  */
 class Solution {
 public:
-    pair<int,int> diameterFast(TreeNode* root){
-        if(root == NULL){
-            return {0,0};  // {diameter, height}
-        }
-
-        auto left = diameterFast(root->left);
-        auto right = diameterFast(root->right);
-
-        int leftDiameter = left.first;
-        int rightDiameter = right.first;
-        int throughRoot = left.second + right.second + 1;
-
-        int diameter = max({leftDiameter, rightDiameter, throughRoot});
-        int height = max(left.second, right.second) + 1;
-
-        return {diameter, height};
-    }
-
+    int ans=0;
     int diameterOfBinaryTree(TreeNode* root) {
-        if(root == nullptr) return 0;
-        return diameterFast(root).first - 1;  // convert nodes → edges
+        height(root);
+        return ans;
+    }
+    int height(TreeNode* root){
+        if(root==NULL){
+            return 0;
+        }
+        int left = height(root->left);
+        int right = height(root->right);
+        ans= max(ans,left+right);
+        return 1 + max(left,right);
     }
 };
